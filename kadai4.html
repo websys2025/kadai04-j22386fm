@@ -51,10 +51,10 @@
                         // 購入による商品の在庫削減処理
                         this.stock -= 1;
                         console.log(this.name+"は、残り"+this.stock+"個です。");
-                        
+                            
                         // 課題4-3. ここにコードを書く
                         // 在庫用のエレメントを抽出し、HTML内の個数を更新
-						const stodkElement =dcument.getElementById("stock-" + this.id);
+	                    const stodkElement =document.getElementById("stock-" + this.id);
 						if(stockElement){
 							stockElement.textContent = this.stock + "個";
 						}
