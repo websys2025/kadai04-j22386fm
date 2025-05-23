@@ -51,16 +51,16 @@
                         // 購入による商品の在庫削減処理
                         this.stock -= 1;
                         console.log(this.name+"は、残り"+this.stock+"個です。");
-                            
+                        
                         // 課題4-3. ここにコードを書く
                         // 在庫用のエレメントを抽出し、HTML内の個数を更新
-	                    const stockElement =document.getElementById("stock-" + this.id);
-                            if(stockElement){
-							stockElement.textContent = this.stock + "個";
-						}
-					} else {
-						console.log(this.name+"は商品の在庫がないため購入できません。");
-					}
+                        const stockArea = document.getElementById("stock+item_list[this].id");
+	                    stockArea.innerHTML = `
+                            stock.${item_list[this].id}個
+                        `;
+		    } else {
+			console.log(this.name+"は商品の在庫がないため購入できません。");
+		    }
                 }
             } // End of Item class
 
@@ -86,7 +86,7 @@
                 <tr>
                     <td>${item_list[i].name}</td>
                     <td>${item_list[i].price}円</td>
-                    <td>${item_list[i].stock}個</td>
+                    <td id="stock${item_list[i].id}">${item_list[i].stock}個</td>
                     <td><button id="button${item_list[i].id}">購入</button></td>
                 </tr>
                 `;
