@@ -7,7 +7,20 @@
     <body>
         <h1 id="vending-machine">自動販売機システム</h1>
         <table id="item_area" border="1"></table>
+        <p>
+            <label>所持金：<input type="moneyNum" id="moneyText"></label>
+            <input type="button" value="登録" id="checkButton">
+        </p>
+        <p id="msg"></p>
         <script>
+            function butotnClick(){
+                msg.innerText = '所持金は' + moneyText.value + '円ですね^^';
+            }
+            let moneyText = document.getElementById('moneyText');
+            moneyText.value = '所持金を入力してネ';
+            let msg = document.getElementById('msg');
+            let checkButton = document.getElementById('checkButton');
+            checkButton.addEventListener('click', butotnClick);
             // 商品一覧を記録する連想配列の配列
             const items =  [
                 { id: 1, name: "緑茶", price: 140, stock: 5 },
@@ -55,14 +68,17 @@
                         // 課題4-3. ここにコードを書く
                         // 在庫用のエレメントを抽出し、HTML内の個数を更新
                         const stockArea = document.getElementById("stock"+this.id);
-　　　　　　　　　　　　stockArea.innerHTML = `
+                        stockArea.innerHTML = `
                             ${this.stock}個
                         `;
+
+                        // 所持金が減っていく処理をここで行う
+                        
 		    	} else {
-			    console.log(this.name+"は商品の在庫がないため購入できません。");
+			        console.log(this.name+"は商品の在庫がないため購入できません。");
 		    	}
                     }
-                } // End of Item class
+            } // End of Item class
 
             // 商品テーブルのエレメント抽出
             const itemArea = document.getElementById("item_area");
@@ -72,6 +88,10 @@
             const item_list = new Array(items.length);
             const btn = new Array(items.length);
 
+            //------------オプション課題------------//
+            // 所持金の変数を宣言
+            let money = document.getElementById("mymoney");
+            
             // 課題4-1. ここにコード書く
             // 商品オブジェクトの生成
             for(i=0; i < items.length; i++){
