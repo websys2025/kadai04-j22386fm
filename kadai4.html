@@ -17,7 +17,7 @@
                 msg.innerText = '所持金は' + moneyText.value + '円ですね^^';
             }
             let moneyText = document.getElementById('moneyText');
-            moneyText.value = '所持金を入力してネ';
+            moneyText.value = '';
             let msg = document.getElementById('msg');
             let checkButton = document.getElementById('checkButton');
             checkButton.addEventListener('click', butotnClick);
@@ -56,28 +56,35 @@
                     }
                     console.log(""); // 空行の出力
                 }
+		    
                 // 商品購入の関数
-                buyItem() {          
-                    if (this.stock >= 1) { 
-                        console.log("商品番号: "+this.id+", 商品名: "+this.name+"を購入します。");
-                        // 課題4-2. ここにコードを書く
-                        // 購入による商品の在庫削減処理
-                        this.stock -= 1;
-                        console.log(this.name+"は、残り"+this.stock+"個です。");
+                buyItem() {
+                    if(moneyText.value - this.price >= 0){          
+                        if (this.stock >= 1) { 
+                            console.log("商品番号: "+this.id+", 商品名: "+this.name+"を購入します。");
+                            // 課題4-2. ここにコードを書く
+                            // 購入による商品の在庫削減処理
+                            this.stock -= 1;
+                            console.log(this.name+"は、残り"+this.stock+"個です。");
                         
-                        // 課題4-3. ここにコードを書く
-                        // 在庫用のエレメントを抽出し、HTML内の個数を更新
-                        const stockArea = document.getElementById("stock"+this.id);
-                        stockArea.innerHTML = `
-                            ${this.stock}個
-                        `;
+                            // 課題4-3. ここにコードを書く
+                            // 在庫用のエレメントを抽出し、HTML内の個数を更新
+                            const stockArea = document.getElementById("stock"+this.id);
+                            stockArea.innerHTML = `
+                                ${this.stock}個
+                            `;
 
-                        // 所持金が減っていく処理をここで行う
+                            // 所持金が減っていく処理をここで行う
                         
-		    	} else {
-			        console.log(this.name+"は商品の在庫がないため購入できません。");
-		    	}
+                            msg.innerText =　`所持金は` + (moneyText.value-this.price) +`円ですね^^`;
+                            moneyText.value = moneyText.value - this.price;
+                        } else {
+	    		            console.log(this.name+"は商品の在庫がないため購入できません。");
+    		    	    }
+                    }else{
+                        msg.innerText = this.price - moneyText.value + '円足りないため購入が厳しいです^^;;';
                     }
+		    	}
             } // End of Item class
 
             // 商品テーブルのエレメント抽出
@@ -87,10 +94,6 @@
             // 配列のオブジェクト作成
             const item_list = new Array(items.length);
             const btn = new Array(items.length);
-
-            //------------オプション課題------------//
-            // 所持金の変数を宣言
-            let money = document.getElementById("mymoney");
             
             // 課題4-1. ここにコード書く
             // 商品オブジェクトの生成
